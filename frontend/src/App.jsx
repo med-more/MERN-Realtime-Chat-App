@@ -7,15 +7,22 @@ import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
+import {Loader} from "lucide-react";
 
 const App = () => {
-  const {authUser, checkAuth} = useAuthStore();
+  const {authUser, checkAuth, isChekingAuth} = useAuthStore();
 
   useEffect(() =>{
     checkAuth();
   }, [checkAuth]);
 
   console.log({authUser});
+
+  if (isChekingAuth && !authUser) return (
+    <div className = "flex items-center justify-center h-screen">
+      <Loader className = "size-10 animate-spin" />
+    </div>
+  );
   return (
     <div>
       <Navbar />
